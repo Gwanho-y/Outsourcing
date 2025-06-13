@@ -18,11 +18,21 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//웹 애플리케이션에 필요한 기본 의존성 주입
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//jpa 의존성 주입
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//테스트 관련 의존성 주입
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	//lombok 의존성 주입
 	implementation 'org.projectlombok:lombok'
+
+	//mysql 의존성 주입
+	implementation 'mysql:mysql-connector-java:8.0.33'
 }
 
 tasks.named('test') {
