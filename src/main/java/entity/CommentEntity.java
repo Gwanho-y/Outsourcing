@@ -1,19 +1,16 @@
 package entity;
 
+import entity.TaskEntity;
 import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.persistence.*;
-import org.springframework.scheduling.config.Task;
-
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "comments")
 @Getter
-@Setter
 public class CommentEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long commentId;
 
     @ManyToOne(optional=false)
     private TaskEntity taskId;
@@ -30,7 +27,10 @@ public class CommentEntity {
     @Column(nullable=false)
     private LocalDateTime updatedAt;
 
-    @PrePersist void onCreate(){createdAt=LocalDateTime.now();}
-    @PreUpdate void onUpdate(){updatedAt=LocalDateTime.now();}
-    // getters and setters
+    @PrePersist void onCreate(){
+        createdAt=LocalDateTime.now();
+    }
+    @PreUpdate void onUpdate(){
+        updatedAt=LocalDateTime.now();
+    }
 }

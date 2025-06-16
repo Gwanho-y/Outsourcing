@@ -1,14 +1,12 @@
 package entity;
 
-import entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tasks")
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class TaskEntity {
 
     @Id
@@ -19,7 +17,7 @@ public class TaskEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(nullable = false, length = 255)
+    @Column(length = 50, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -28,10 +26,16 @@ public class TaskEntity {
     @Column(nullable = false, length = 50)
     private String status;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
 }
+
+
+
+
+
+
