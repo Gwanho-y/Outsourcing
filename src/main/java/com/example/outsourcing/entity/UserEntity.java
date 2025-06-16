@@ -1,4 +1,4 @@
-package entity;
+package com.example.outsourcing.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

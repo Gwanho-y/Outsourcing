@@ -1,6 +1,5 @@
-package entity;
+package com.example.outsourcing.entity;
 
-import entity.TaskEntity;
 import lombok.Getter;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package service;
+package com.example.outsourcing.service;
 
 import org.springframework.stereotype.Service;
 
