@@ -1,26 +1,21 @@
 package entity;
 
 import jakarta.persistence.*;
-
-import lombok.AllArgsConstructor;
 import lombok.*;
 
 @Getter
-@Setter
+@Table(name = "users")
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 254, name = "email")
+    @Column(nullable = false, length = 255)
     private String email;
 
-    @Column(nullable = false, length = 254)
+    @Column(nullable = false, length = 255)
     private String password;
 
     @Column(nullable = false, length = 5)

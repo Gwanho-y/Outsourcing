@@ -2,14 +2,11 @@ package entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "logs")
 @Getter
-@Setter
 
 public class LogEntity {
     @Id
@@ -39,6 +36,10 @@ public class LogEntity {
 
     @Column(name = "act_type", length = 25, nullable = false)
     private String actType;
+//기본 생성자
+    public LogEntity() {
+
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -51,7 +52,5 @@ public class LogEntity {
         if (this.user != null) {
             this.name = this.user.getName();
         }
-
-
     }
 }
