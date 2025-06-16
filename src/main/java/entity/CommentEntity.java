@@ -16,7 +16,7 @@ public class CommentEntity {
     private Long id;
 
     @ManyToOne(optional=false)
-    private com.example.outsourcing.entity.TaskEntity taskId;
+    private TaskEntity taskId;
 
     @ManyToOne(optional = false)
     private UserEntity user;
