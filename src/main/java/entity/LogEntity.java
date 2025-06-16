@@ -19,7 +19,7 @@ public class LogEntity {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
-    private com.example.outsourcing.entity.TaskEntity task;
+    private TaskEntity task;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
