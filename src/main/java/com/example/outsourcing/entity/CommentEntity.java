@@ -1,6 +1,5 @@
-package entity;
+package com.example.outsourcing.entity;
 
-import entity.TaskEntity;
 import lombok.Getter;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 @Getter
 public class CommentEntity {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
@@ -27,10 +27,36 @@ public class CommentEntity {
     @Column(nullable=false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "is_deleted")
+    private boolean deleted;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     @PrePersist void onCreate(){
         createdAt=LocalDateTime.now();
     }
     @PreUpdate void onUpdate(){
         updatedAt=LocalDateTime.now();
+    }
+
+    public void setTaskId(TaskEntity taskId) {
+        this.taskId = taskId;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }
