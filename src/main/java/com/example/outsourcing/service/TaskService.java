@@ -2,6 +2,7 @@ package com.example.outsourcing.service;
 
 import com.example.outsourcing.dto.task.TaskRequestDto;
 import com.example.outsourcing.dto.task.TaskResponseDto;
+import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
 import com.example.outsourcing.entity.TaskEntity;
 import com.example.outsourcing.entity.UserEntity;
 import com.example.outsourcing.repository.TaskRepository;
@@ -29,6 +30,7 @@ public class TaskService {
     }
 
     // 태스크 수정
+    @Transactional
     public TaskResponseDto updateTask(TaskRequestDto requestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
 
@@ -38,10 +40,22 @@ public class TaskService {
     }
 
     // 태스크 상태 변경
+    @Transactional
+    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto requestDto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
+
+        task.updateStatus(requestDto.getStatus());
+
+        return new TaskResponseDto(task);
+    }
 
     // 태스크 삭제
+    @Transactional
+    public void deleteTask(Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
 
-
+        taskRepository.delete(task);
+    }
 }
 
 
