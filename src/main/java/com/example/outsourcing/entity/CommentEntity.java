@@ -16,7 +16,7 @@ public class CommentEntity {
     private TaskEntity taskId;
 
     @ManyToOne(optional = false)
-    private UserEntity user;
+    private UserEntity userId;
 
     @Column(nullable=false, columnDefinition = "TEXT")
     private String content;
@@ -44,8 +44,8 @@ public class CommentEntity {
         this.taskId = taskId;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUser(UserEntity userId) {
+        this.userId = userId;
     }
 
     public void setContent(String content) {

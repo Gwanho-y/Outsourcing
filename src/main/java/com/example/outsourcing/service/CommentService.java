@@ -51,7 +51,7 @@ public class CommentService {
     /*태스크에 딸린 전체 댓글 조회*/
     public List<CommentEntity> commentListByTask(Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("Task not found"));
-        return commentRepository.findByTaskAndDeletedFalseOrderByCreatedAtDesc(task);
+        return commentRepository.findByTaskIdAndDeletedFalseOrderByCreatedAtDesc(task);
     }
 
     /*내용에 대한 Like 검색*/
