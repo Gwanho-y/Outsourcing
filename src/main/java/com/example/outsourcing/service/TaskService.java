@@ -22,17 +22,24 @@ public class TaskService {
     public TaskResponseDto createTask(TaskRequestDto requestDto, Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        TaskEntity task = new TaskEntity(
-                user,
-                requestDto.getTitle(),
-                requestDto.getTaskContent(),
-                requestDto.getStatus()
-        );
+        TaskEntity task = new TaskEntity(user, requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getStatus());
 
         TaskEntity savedTask = taskRepository.save(task);
         return new TaskResponseDto(savedTask);
     }
 
+    // 태스크 수정
+    public TaskResponseDto updateTask(TaskRequestDto requestDto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
+
+        task.updateTask(requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getStatus());
+
+        return new TaskResponseDto(task);
+    }
+
+    // 태스크 상태 변경
+
+    // 태스크 삭제
 
 
 }

@@ -4,11 +4,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class TaskRequestDto {
 
     private String title;
     private String taskContent;
     private String status;
+
+    public TaskRequestDto() {
+
+    }
+
+    public TaskRequestDto(String title, String taskContent, String status) {
+        this.title = title;
+        this.taskContent = taskContent;
+        this.status = status;
+    }
 
 }

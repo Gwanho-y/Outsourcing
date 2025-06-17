@@ -12,6 +12,10 @@ public class TaskResponseDto {
     private Long taskId;
     private String createdAt;
 
+    public TaskResponseDto() {
+
+    }
+
     public TaskResponseDto(TaskEntity task) {
         this.title = task.getTitle();
         this.taskContent = task.getTaskContent();
