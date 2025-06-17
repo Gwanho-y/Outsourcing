@@ -28,12 +28,12 @@ public class LogController {
         return logService.getLogsByUserId(userId);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public List<LogResponserDto> getLogsByName(@PathVariable String name) {
         return logService.getLogsByName(name);
     }
 
-    @GetMapping("/{actType}")
+    @GetMapping("/acttype/{actType}")
     public List<LogResponserDto> getLogsByActType(@PathVariable String actType) {
         return logService.getLogsByActType(actType);
     }
