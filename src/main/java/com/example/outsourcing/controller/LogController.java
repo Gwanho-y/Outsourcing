@@ -1,10 +1,9 @@
+// LogController.java
 package com.example.outsourcing.controller;
-import com.example.outsourcing.entity.LogEntity;
+
+import com.example.outsourcing.dto.log.LogResponserDto;
 import com.example.outsourcing.service.LogService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +17,24 @@ public class LogController {
         this.logService = logService;
     }
 
-    @GetMapping("/api/logs")
-    public List<LogEntity> getLog() {
+    // 전체 로그 조회
+    @GetMapping
+    public List<LogResponserDto> getLog() {
         return logService.getLog();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<LogResponserDto> getLogsByUserId(@PathVariable Long userId) {
+        return logService.getLogsByUserId(userId);
+    }
+
+    @GetMapping("/{name}")
+    public List<LogResponserDto> getLogsByName(@PathVariable String name) {
+        return logService.getLogsByName(name);
+    }
+
+    @GetMapping("/{actType}")
+    public List<LogResponserDto> getLogsByActType(@PathVariable String actType) {
+        return logService.getLogsByActType(actType);
     }
 }
