@@ -32,6 +32,27 @@ public class TaskEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    // 기본 생성자
+    protected TaskEntity() {
+
+    }
+
+    // 생성자(Setter 어노테이션을 안쓰기때문)
+    public TaskEntity(UserEntity user, String title, String taskContent, String status) {
+        this.user = user;
+        this.title = title;
+        this.taskContent = taskContent;
+        this.status = status;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateTask(String title, String taskContent, String status) {
+        this.title = title;
+        this.taskContent = taskContent;
+        this.status = status;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
 
 
