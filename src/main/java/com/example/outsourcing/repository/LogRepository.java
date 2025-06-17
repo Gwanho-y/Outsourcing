@@ -1,6 +1,6 @@
-package repository;
+package com.example.outsourcing.repository;
 
-import entity.LogEntity;
+import com.example.outsourcing.entity.LogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
