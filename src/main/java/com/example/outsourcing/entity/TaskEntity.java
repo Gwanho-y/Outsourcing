@@ -53,6 +53,12 @@ public class TaskEntity {
         this.status = status;
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void updateStatus(String status) {
+        this.status = status;
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }
 
 
