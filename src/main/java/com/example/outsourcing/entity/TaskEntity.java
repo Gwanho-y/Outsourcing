@@ -23,8 +23,17 @@ public class TaskEntity {
     @Column(columnDefinition = "TEXT")
     private String taskContent;
 
-    @Column(nullable = false, length = 50)
-    private String status;
+    /**
+     * 기존에 쓰던 String 타입으로 관리하던 방식
+     * @Column(nullable = false, length = 50)
+     * private String status;
+     */
+
+    // 변경 후
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus taskStatus;
+
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -38,24 +47,23 @@ public class TaskEntity {
     }
 
     // 생성자(Setter 어노테이션을 안쓰기때문)
-    public TaskEntity(UserEntity user, String title, String taskContent, String status) {
+    public TaskEntity(UserEntity user, String title, String taskContent, TaskStatus taskStatus) {
         this.user = user;
         this.title = title;
         this.taskContent = taskContent;
-        this.status = status;
+        this.taskStatus = taskStatus;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void updateTask(String title, String taskContent, String status) {
+    public void updateTask(String title, String content) {
         this.title = title;
-        this.taskContent = taskContent;
-        this.status = status;
+        this.taskContent = content;
         this.updatedAt = LocalDateTime.now();
     }
 
-    public void updateStatus(String status) {
-        this.status = status;
+    public void updateStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
         this.updatedAt = LocalDateTime.now();
     }
 

@@ -27,7 +27,7 @@ public class TaskService {
     public TaskResponseDto createTask(TaskRequestDto requestDto, Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        TaskEntity task = new TaskEntity(user, requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getStatus());
+        TaskEntity task = new TaskEntity(user, requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getTaskStatus());
 
         TaskEntity savedTask = taskRepository.save(task);
         return new TaskResponseDto(savedTask);
@@ -38,7 +38,8 @@ public class TaskService {
     public TaskResponseDto updateTask(TaskRequestDto requestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
 
-        task.updateTask(requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getStatus());
+        // 상태는 그대로 두고 제목/내용만 업데이트
+        task.updateTask(requestDto.getTitle(), requestDto.getTaskContent());
 
         return new TaskResponseDto(task);
     }
@@ -48,8 +49,7 @@ public class TaskService {
     public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto requestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
 
-        task.updateStatus(requestDto.getStatus());
-
+        task.updateStatus(requestDto.getTaskStatus());
         return new TaskResponseDto(task);
     }
 

@@ -45,7 +45,7 @@ public class TaskController {
             @PathVariable Long taskId
     ) {
         TaskResponseDto responseDto = taskService.updateTaskStatus(requestDto, taskId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK); // 200
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     // 태스크 삭제

@@ -1,21 +1,18 @@
 package com.example.outsourcing.dto.task;
 
+import com.example.outsourcing.entity.TaskStatus;
 import lombok.Getter;
 
 @Getter
 public class TaskStatusUpdateRequestDto {
 
-    private String status;
+    private TaskStatus taskStatus;
 
     public TaskStatusUpdateRequestDto() {
 
     }
 
-    public TaskStatusUpdateRequestDto(String status) {
-        this.status = status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public TaskStatusUpdateRequestDto(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 }
