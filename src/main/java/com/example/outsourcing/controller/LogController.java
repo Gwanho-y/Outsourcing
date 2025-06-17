@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/logs")
+@RequestMapping("/api/logs")
 public class LogController {
 
     private final LogService logService;
@@ -18,7 +18,7 @@ public class LogController {
         this.logService = logService;
     }
 
-    @GetMapping("/logs")
+    @GetMapping("/api/logs")
     public List<LogEntity> getLog() {
         return logService.getLog();
     }

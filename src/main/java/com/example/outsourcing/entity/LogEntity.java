@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "logs")
+@Table(name = "/api/logs")
 @Getter
 
 public class LogEntity {
