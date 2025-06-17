@@ -28,7 +28,7 @@ public class UserEntity {
         this.name = name;
     }
 
-    public UserEntity() {
+    protected UserEntity() {
 
     }
 }
