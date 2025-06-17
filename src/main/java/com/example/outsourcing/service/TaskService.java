@@ -12,11 +12,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor // final 필드 자동생성
 public class TaskService {
 
     private final TaskRepository taskRepository; // db
     private final UserRepository userRepository; // 구현하셨다고 가정
+
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+    }
 
     // 태스크 생성
     @Transactional
