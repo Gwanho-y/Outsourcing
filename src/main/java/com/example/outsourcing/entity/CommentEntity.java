@@ -16,7 +16,7 @@ public class CommentEntity {
     private TaskEntity taskId;
 
     @ManyToOne(optional = false)
-    private UserEntity user;
+    private UserEntity userId;
 
     @Column(nullable=false, columnDefinition = "TEXT")
     private String content;
@@ -28,7 +28,7 @@ public class CommentEntity {
     private LocalDateTime updatedAt;
 
     @Column(name = "is_deleted")
-    private boolean deleted;
+    private boolean isDeleted = false;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
@@ -44,19 +44,19 @@ public class CommentEntity {
         this.taskId = taskId;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserId(UserEntity user) {
+        this.userId = user;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setDeletedAt() {
+        this.deletedAt = LocalDateTime.now();
     }
 }

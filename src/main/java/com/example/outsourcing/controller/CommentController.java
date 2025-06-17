@@ -36,7 +36,7 @@ public class CommentController {
     /*태스크에 딸린 댓글 전체조회*/
     @GetMapping("/task/{taskId}")
     public ResponseEntity<List<CommentEntity>> list(@PathVariable Long taskId) {
-        return ResponseEntity.ok(service.listByTask(taskId));
+        return ResponseEntity.ok(service.commentListByTask(taskId));
     }
 
     /*내용에 대한 Like 검색*/
