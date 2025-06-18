@@ -1,0 +1,82 @@
+package com.example.outsourcing.service;
+
+import com.example.outsourcing.dto.task.*;
+import com.example.outsourcing.entity.TaskEntity;
+import com.example.outsourcing.entity.UserEntity;
+import com.example.outsourcing.global.exception.TaskNotFoundException;
+import com.example.outsourcing.repository.TaskRepository;
+import com.example.outsourcing.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class TaskService {
+
+    private final TaskRepository taskRepository; // db
+    private final UserRepository userRepository; // 구현하셨다고 가정
+
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+    }
+
+    // 태스크 생성
+    @Transactional
+    public TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto, Long userId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        TaskEntity task = new TaskEntity(user, createTaskRequestDto.getTitle(), createTaskRequestDto.getTaskContent(), createTaskRequestDto.getTaskStatus());
+
+        TaskEntity savedTask = taskRepository.save(task);
+        return new TaskResponseDto(savedTask);
+    }
+
+    // 태스크 수정
+    @Transactional
+    public TaskResponseDto updateTask(UpdateTaskRequestDto dto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+
+        task.updateTask(dto.getTitle(), dto.getTaskContent());
+        return new TaskResponseDto(task);
+    }
+
+    // 태스크 상태 변경
+    @Transactional
+    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto dto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+
+        task.updateStatus(dto.getTaskStatus());
+        return new TaskResponseDto(task);
+    }
+
+    // 전체 태스크 조회
+    public List<TaskResponseDto> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .filter(taskEntity -> !taskEntity.isDeleted()) // 삭제 안 된 태스크만 필터링
+                .map(TaskResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    // 단건 태스크 조회
+    public TaskResponseDto getTaskById(Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+        return new TaskResponseDto(task);
+    }
+
+    // 태스크 삭제
+    @Transactional
+    public void deleteTask(Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+
+        task.softDelete();
+    }
+}
