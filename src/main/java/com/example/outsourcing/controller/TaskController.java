@@ -1,5 +1,6 @@
 package com.example.outsourcing.controller;
 
+import com.example.outsourcing.dto.task.CreateTaskRequestDto;
 import com.example.outsourcing.dto.task.TaskRequestDto;
 import com.example.outsourcing.dto.task.TaskResponseDto;
 import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
@@ -21,11 +22,11 @@ public class TaskController {
     // 태스크 생성, 인증된 유저만
     @PostMapping
     public ResponseEntity<TaskResponseDto> createTask(
-            @RequestBody TaskRequestDto taskRequestDto,
-            @RequestParam("userId") Long userId //로그인 유저 ID
+            @RequestBody CreateTaskRequestDto createRequestDto,
+            @RequestParam("userId") Long userId
     ) {
-        TaskResponseDto responseDto = taskService.createTask(taskRequestDto, userId);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED); // 201
+        TaskResponseDto responseDto = taskService.createTask(createRequestDto, userId);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     // 태스크 수정

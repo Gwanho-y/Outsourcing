@@ -1,5 +1,6 @@
 package com.example.outsourcing.service;
 
+import com.example.outsourcing.dto.task.CreateTaskRequestDto;
 import com.example.outsourcing.dto.task.TaskRequestDto;
 import com.example.outsourcing.dto.task.TaskResponseDto;
 import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
@@ -24,7 +25,7 @@ public class TaskService {
 
     // 태스크 생성
     @Transactional
-    public TaskResponseDto createTask(TaskRequestDto requestDto, Long userId) {
+    public TaskResponseDto createTask(CreateTaskRequestDto requestDto, Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         TaskEntity task = new TaskEntity(user, requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getTaskStatus());
