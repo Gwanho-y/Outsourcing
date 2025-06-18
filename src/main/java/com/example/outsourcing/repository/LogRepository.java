@@ -1,8 +1,6 @@
 package com.example.outsourcing.repository;
 
-import com.example.outsourcing.dto.log.LogResponserDto;
 import com.example.outsourcing.entity.LogEntity;
-import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

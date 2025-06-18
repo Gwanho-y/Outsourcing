@@ -2,8 +2,10 @@ package com.example.outsourcing.dto.log;
 
 import com.example.outsourcing.entity.LogEntity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import java.time.LocalDateTime;
 
+@Getter
 @AllArgsConstructor
 public class LogResponserDto {
     private Long logId;
@@ -12,6 +14,7 @@ public class LogResponserDto {
     private String logContent;
     private LocalDateTime createdAt;
 
+    /*
     public LogResponserDto(LogEntity log) {
         this.logId = log.getLogId();
         this.name = log.getName();
@@ -19,6 +22,7 @@ public class LogResponserDto {
         this.logContent = log.getLogContent();
         this.createdAt = log.getCreatedAt();
     }
+    */
 
     public static LogResponserDto toDto(LogEntity log) {
         return new LogResponserDto(

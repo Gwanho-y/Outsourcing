@@ -1,6 +1,5 @@
 package com.example.outsourcing.entity;
 
-import com.mysql.cj.log.Log;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.time.LocalDateTime;
