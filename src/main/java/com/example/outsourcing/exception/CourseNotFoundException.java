@@ -1,0 +1,7 @@
+package com.example.outsourcing.exception;
+
+public class CourseNotFoundException extends RuntimeException {
+    public CourseNotFoundException(String message) {
+        super(message);
+    }
+}
