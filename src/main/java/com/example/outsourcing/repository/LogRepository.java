@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Repository
 public interface LogRepository extends JpaRepository<LogEntity, Long> {
-    List<LogEntity> findAllByUser_UserId(Long userId);    // userId로 조회
+    List<LogEntity> findAllByUser_Id(Long Id);    // userId로 조회
     List<LogEntity> findAllByName(String name);            // name으로 조회
     List<LogEntity> findAllByActType(String actType);      // actType으로 조회
 }

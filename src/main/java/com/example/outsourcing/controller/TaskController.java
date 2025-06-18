@@ -1,6 +1,7 @@
 package com.example.outsourcing.controller;
 
 import com.example.outsourcing.dto.task.*;
+import com.example.outsourcing.entity.LogEntity;
 import com.example.outsourcing.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
