@@ -66,7 +66,7 @@ public class CommentService {
     /*태스크에 딸린 전체 댓글 조회*/
     public List<CommentDto> findCommentsByTask(Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
-        List<CommentEntity> entityList = commentRepository.findByTaskIdAndDeletedFalseOrderByCreatedAtDesc(task);
+        List<CommentEntity> entityList = commentRepository.findByTaskIdAndIsDeletedFalseOrderByCreatedAtDesc(task);
         List<CommentDto> responseDto = entityList.stream().
                 map(entity -> new CommentDto(
                         entity.getCommentId(), entity.getTaskId().getTaskId(), entity.getUserId().getId(), entity.getContent(), entity.getCreatedAt(), entity.getUpdatedAt())).
@@ -76,7 +76,7 @@ public class CommentService {
 
     /*내용에 대한 Like 검색*/
     public List<CommentDto> findCommentsByKeyword(String keyword) {
-        List<CommentEntity> entityList = commentRepository.findByContentContainingAndDeletedFalse(keyword);
+        List<CommentEntity> entityList = commentRepository.findByContentContainingAndIsDeletedFalse(keyword);
         List<CommentDto> responseDto = entityList.stream()
                 .map(entity -> new CommentDto(
                         entity.getCommentId(),
