@@ -9,6 +9,9 @@ import com.example.outsourcing.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TaskService {
 
@@ -47,6 +50,22 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         task.updateStatus(requestDto.getTaskStatus());
+        return new TaskResponseDto(task);
+    }
+
+    // 전체 태스크 조회
+    public List<TaskResponseDto> getAllTasks() {
+        List<TaskEntity> taskList = taskRepository.findAll();
+
+        return taskList.stream()
+                .map(TaskResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    // 단건 태스크 조회
+    public TaskResponseDto getTaskById(Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+
         return new TaskResponseDto(task);
     }
 
