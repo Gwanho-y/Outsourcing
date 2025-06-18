@@ -45,8 +45,10 @@ public class TaskController {
             @PathVariable Long taskId
     ) {
         TaskResponseDto responseDto = taskService.updateTaskStatus(requestDto, taskId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK); // 200
     }
+
+    // 태스크 조회
 
     // 태스크 삭제
     @DeleteMapping("/{taskId}")
@@ -56,5 +58,4 @@ public class TaskController {
         taskService.deleteTask(taskId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204
     }
-
 }

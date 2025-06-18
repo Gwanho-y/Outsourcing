@@ -5,10 +5,10 @@ import com.example.outsourcing.dto.task.TaskResponseDto;
 import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
 import com.example.outsourcing.entity.TaskEntity;
 import com.example.outsourcing.entity.UserEntity;
+import com.example.outsourcing.global.exception.TaskNotFoundException;
 import com.example.outsourcing.repository.TaskRepository;
 import com.example.outsourcing.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,18 +36,17 @@ public class TaskService {
     // 태스크 수정
     @Transactional
     public TaskResponseDto updateTask(TaskRequestDto requestDto, Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
-        // 상태는 그대로 두고 제목/내용만 업데이트
+        //제목/내용만 업데이트
         task.updateTask(requestDto.getTitle(), requestDto.getTaskContent());
-
         return new TaskResponseDto(task);
     }
 
     // 태스크 상태 변경
     @Transactional
     public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto requestDto, Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         task.updateStatus(requestDto.getTaskStatus());
         return new TaskResponseDto(task);
@@ -56,7 +55,7 @@ public class TaskService {
     // 태스크 삭제
     @Transactional
     public void deleteTask(Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("해당 태스크가 존재하지 않습니다."));
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         taskRepository.delete(task);
     }

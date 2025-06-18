@@ -3,7 +3,6 @@ package com.example.outsourcing.dto.task;
 import com.example.outsourcing.entity.TaskEntity;
 import com.example.outsourcing.entity.TaskStatus;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 @Getter

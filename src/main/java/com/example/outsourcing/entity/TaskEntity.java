@@ -65,5 +65,4 @@ public class TaskEntity {
         this.taskStatus = taskStatus;
         this.updatedAt = LocalDateTime.now();
     }
-
 }

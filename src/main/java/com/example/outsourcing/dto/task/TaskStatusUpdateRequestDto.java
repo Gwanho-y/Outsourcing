@@ -5,12 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class TaskStatusUpdateRequestDto {
-
     private TaskStatus taskStatus;
-
-    public TaskStatusUpdateRequestDto() {
-
-    }
 
     public TaskStatusUpdateRequestDto(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
