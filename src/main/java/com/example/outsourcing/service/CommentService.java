@@ -4,12 +4,14 @@ import com.example.outsourcing.dto.comment.*;
 import com.example.outsourcing.entity.CommentEntity;
 import com.example.outsourcing.entity.TaskEntity;
 import com.example.outsourcing.entity.UserEntity;
+import com.example.outsourcing.global.exception.CommentNotFoundException;
+import com.example.outsourcing.global.exception.CommentUserMismatchException;
+import com.example.outsourcing.global.exception.TaskNotFoundException;
 import com.example.outsourcing.repository.CommentRepository;
 import com.example.outsourcing.repository.TaskRepository;
 import com.example.outsourcing.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import com.example.outsourcing.global.exception.Exceptions.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +32,8 @@ public class CommentService {
     /*댓글 생성*/
     @Transactional
     public CommentCreateResponseDto create(CommentCreateRequestDto dto) {
-        TaskEntity taskId = taskRepository.findById(dto.getTaskId()).orElseThrow(() -> new TaskNotFoundException());
-        UserEntity userId = userRepository.findById(dto.getUserId()).orElseThrow(() -> new UserNotFoundException());
+        TaskEntity taskId = taskRepository.findById(dto.getTaskId()).orElseThrow(() -> new TaskNotFoundException("ID=" + dto.getTaskId()));
+        UserEntity userId = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
 
         CommentEntity comment = new CommentEntity(taskId, userId, dto.getContent());
         commentRepository.save(comment);
@@ -63,7 +65,7 @@ public class CommentService {
 
     /*태스크에 딸린 전체 댓글 조회*/
     public List<CommentDto> findCommentsByTask(Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException());
+        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
         List<CommentEntity> entityList = commentRepository.findByTaskIdAndDeletedFalseOrderByCreatedAtDesc(task);
         List<CommentDto> responseDto = entityList.stream().
                 map(entity -> new CommentDto(

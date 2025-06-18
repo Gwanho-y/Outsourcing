@@ -3,7 +3,6 @@ package com.example.outsourcing.global.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.example.outsourcing.global.exception.Exceptions.*;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -14,7 +13,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("잘못된 요청입니다: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(CommentNotFoundException.class)
-    public ResponseEntity<String> handleCommentNotFound(Exceptions.CommentNotFoundException ex) {
+    public ResponseEntity<String> handleCommentNotFound(CommentNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
@@ -26,7 +25,7 @@ public class GlobalExceptionHandler {
                 .body("해당 태스크를 찾을 수 없습니다: " + taskNotFoundException.getMessage());
     }
     @ExceptionHandler(CommentUserMismatchException.class)
-    public ResponseEntity<String> handleCommentUserMismatch(Exceptions.CommentUserMismatchException ex) {
+    public ResponseEntity<String> handleCommentUserMismatch(CommentUserMismatchException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
