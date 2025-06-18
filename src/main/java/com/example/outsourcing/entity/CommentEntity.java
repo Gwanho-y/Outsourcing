@@ -3,6 +3,7 @@ package com.example.outsourcing.entity;
 import lombok.Getter;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "comments")
@@ -27,36 +28,32 @@ public class CommentEntity {
     @Column(nullable=false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
+    @Column
     private boolean isDeleted;
 
-    @Column(name = "deleted_at")
+    @Column
     private LocalDateTime deletedAt;
 
-    @PrePersist void onCreate(){
-        createdAt=LocalDateTime.now();
-    }
-    @PreUpdate void onUpdate(){
-        updatedAt=LocalDateTime.now();
+    protected CommentEntity() {
+
     }
 
-    public void setTaskId(TaskEntity taskId) {
+    public CommentEntity(TaskEntity taskId, UserEntity userId, String content) {
         this.taskId = taskId;
-    }
-
-    public void setUser(UserEntity userId) {
         this.userId = userId;
-    }
-
-    public void setContent(String content) {
         this.content = content;
+        this.createdAt = LocalDateTime.now(ZoneOffset.UTC);
+        this.updatedAt = LocalDateTime.now(ZoneOffset.UTC);
+        this.isDeleted = false;
     }
 
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void updateComment(String content) {
+        this.content = content;
+        this.updatedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
+    public void delete() {
+        this.isDeleted = true;
+        this.deletedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 }
