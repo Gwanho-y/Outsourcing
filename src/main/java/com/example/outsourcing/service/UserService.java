@@ -2,10 +2,10 @@ package com.example.outsourcing.service;
 
 
 import com.example.outsourcing.entity.UserEntity;
-import com.example.outsourcing.dto.LoginRequestDto;
+import com.example.outsourcing.dto.user.LoginRequestDto;
 import com.example.outsourcing.config.PasswordEncoder;
-import com.example.outsourcing.dto.UserCreateRequestDto;
-import com.example.outsourcing.dto.UserCreateResponseDto;
+import com.example.outsourcing.dto.user.UserCreateRequestDto;
+import com.example.outsourcing.dto.user.UserCreateResponseDto;
 import com.example.outsourcing.global.exception.*;
 import com.example.outsourcing.repository.UserRepository;
 import org.springframework.stereotype.Service;

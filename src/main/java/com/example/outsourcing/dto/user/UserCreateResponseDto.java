@@ -1,4 +1,4 @@
-package com.example.outsourcing.dto;
+package com.example.outsourcing.dto.user;
 
 import com.example.outsourcing.entity.UserEntity;
 
