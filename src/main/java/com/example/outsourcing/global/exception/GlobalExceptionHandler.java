@@ -1,9 +1,9 @@
-package com.example.outsourcing.exception;
+package com.example.outsourcing.global.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.example.outsourcing.exception.Exceptions.*;
+import com.example.outsourcing.global.exception.Exceptions.*;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice

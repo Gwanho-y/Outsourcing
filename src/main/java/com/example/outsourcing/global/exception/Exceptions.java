@@ -1,4 +1,4 @@
-package com.example.outsourcing.exception;
+package com.example.outsourcing.global.exception;
 
 public class Exceptions {
     // 댓글을 찾을 수 없음

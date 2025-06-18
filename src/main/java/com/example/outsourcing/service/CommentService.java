@@ -9,7 +9,7 @@ import com.example.outsourcing.repository.TaskRepository;
 import com.example.outsourcing.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import com.example.outsourcing.exception.Exceptions.*;
+import com.example.outsourcing.global.exception.Exceptions.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
