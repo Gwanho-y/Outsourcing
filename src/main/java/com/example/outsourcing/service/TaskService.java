@@ -46,10 +46,10 @@ public class TaskService {
 
     // 태스크 상태 변경
     @Transactional
-    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto requestDto, Long taskId) {
+    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto taskStatusRequestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
-        task.updateStatus(requestDto.getTaskStatus());
+        task.updateStatus(taskStatusRequestDto.getTaskStatus());
         return new TaskResponseDto(task);
     }
 
