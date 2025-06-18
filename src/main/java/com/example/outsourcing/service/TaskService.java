@@ -1,9 +1,6 @@
 package com.example.outsourcing.service;
 
-import com.example.outsourcing.dto.task.CreateTaskRequestDto;
-import com.example.outsourcing.dto.task.TaskRequestDto;
-import com.example.outsourcing.dto.task.TaskResponseDto;
-import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
+import com.example.outsourcing.dto.task.*;
 import com.example.outsourcing.entity.TaskEntity;
 import com.example.outsourcing.entity.UserEntity;
 import com.example.outsourcing.global.exception.TaskNotFoundException;
@@ -36,7 +33,7 @@ public class TaskService {
 
     // 태스크 수정
     @Transactional
-    public TaskResponseDto updateTask(TaskRequestDto requestDto, Long taskId) {
+    public TaskResponseDto updateTask(UpdateTaskRequestDto requestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         //제목/내용만 업데이트

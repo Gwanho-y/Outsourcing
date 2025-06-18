@@ -1,9 +1,6 @@
 package com.example.outsourcing.controller;
 
-import com.example.outsourcing.dto.task.CreateTaskRequestDto;
-import com.example.outsourcing.dto.task.TaskRequestDto;
-import com.example.outsourcing.dto.task.TaskResponseDto;
-import com.example.outsourcing.dto.task.TaskStatusUpdateRequestDto;
+import com.example.outsourcing.dto.task.*;
 import com.example.outsourcing.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +19,21 @@ public class TaskController {
     // 태스크 생성, 인증된 유저만
     @PostMapping
     public ResponseEntity<TaskResponseDto> createTask(
-            @RequestBody CreateTaskRequestDto createRequestDto,
+            @RequestBody CreateTaskRequestDto createTaskRequestDto,
             @RequestParam("userId") Long userId
     ) {
-        TaskResponseDto responseDto = taskService.createTask(createRequestDto, userId);
+        TaskResponseDto responseDto = taskService.createTask(createTaskRequestDto, userId);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     // 태스크 수정
     @PatchMapping("/{taskId}")
     public ResponseEntity<TaskResponseDto> updateTask(
-            @RequestBody TaskRequestDto taskRequestDto,
+            @RequestBody UpdateTaskRequestDto updateTaskRequestDto,
             @PathVariable Long taskId
     ) {
-        TaskResponseDto responseDto = taskService.updateTask(taskRequestDto, taskId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK); // 200
+        TaskResponseDto responseDto = taskService.updateTask(updateTaskRequestDto, taskId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     // 태스크 상태 변경
