@@ -34,12 +34,12 @@ public class TaskService {
 
         TaskEntity task = new TaskEntity(user, createTaskRequestDto.getTitle(), createTaskRequestDto.getTaskContent(), createTaskRequestDto.getTaskStatus());
         //로그 생성
-        LogEntity logtaskcreate = LogEntity.logFromTaskCreate(
+        LogEntity log = LogEntity.logFromTaskCreate(
                 user,
                 "작업 생성",
                 "작업이 생성되었습니다."
         );
-        logRepository.save(logtaskcreate);
+        logRepository.save(log);
 
         TaskEntity savedTask = taskRepository.save(task);
         return new TaskResponseDto(savedTask);
@@ -51,6 +51,14 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(taskId)
                 .filter(taskEntity -> !taskEntity.isDeleted())
                 .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+        //로그 생성
+        UserEntity user = task.getUser();
+        LogEntity log = LogEntity.logFromTaskUpdate(
+                user,
+                "작업 수정",
+                "작업이 수정되었습니다."
+        );
+        logRepository.save(log);
 
         task.updateTask(dto.getTitle(), dto.getTaskContent());
         return new TaskResponseDto(task);
@@ -62,6 +70,15 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(taskId)
                 .filter(taskEntity -> !taskEntity.isDeleted())
                 .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+        //로그 생성
+        //로그 생성
+        UserEntity user = task.getUser();
+        LogEntity log = LogEntity.logFromTaskStatus(
+                user,
+                "작업 상태 변경",
+                "작업 상태 변경되었습니다."
+        );
+        logRepository.save(log);
 
         task.updateStatus(dto.getTaskStatus());
         return new TaskResponseDto(task);
@@ -87,6 +104,14 @@ public class TaskService {
     @Transactional
     public void deleteTask(Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+        //로그 생성
+        UserEntity user = task.getUser();
+        LogEntity log = LogEntity.logFromTaskDelete(
+                user,
+                "작업 삭제",
+                "작업이 삭제되었습니다."
+        );
+        logRepository.save(log);
 
         task.softDelete();
     }

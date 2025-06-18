@@ -59,6 +59,11 @@ public class LogEntity {
         return logEntity;
     }
 
+    public static LogEntity logFromTaskStatus(UserEntity user, String actType, String logContent) {
+        LogEntity logEntity = new LogEntity(user, actType, logContent);
+        return logEntity;
+    }
+
     public static LogEntity logFromTaskDelete(UserEntity user, String actType, String logContent) {
         LogEntity logEntity = new LogEntity(user, actType, logContent);
         return logEntity;
