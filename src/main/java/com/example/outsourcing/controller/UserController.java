@@ -34,7 +34,6 @@ public class UserController {
         ResponseEntity<UserCreateResponseDto> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
         return response;
     }
-
     //회원탈퇴
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(@RequestHeader(value = "Authorization", required = false) String authHeader, @RequestBody LoginRequestDto dto) {
@@ -51,7 +50,6 @@ public class UserController {
             return ResponseEntity.status(400).body("회원탈퇴 실패: " + e.getMessage());
         }
     }
-
     //로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto dto) {
