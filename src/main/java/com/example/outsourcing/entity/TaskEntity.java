@@ -34,11 +34,14 @@ public class TaskEntity {
     @Column(nullable = false)
     private TaskStatus taskStatus;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Column
+    private boolean isDeleted = false;
 
     // 기본 생성자
     protected TaskEntity() {
@@ -64,5 +67,9 @@ public class TaskEntity {
     public void updateStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void softDelete() {
+        this.isDeleted = true;
     }
 }

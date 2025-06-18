@@ -36,36 +36,39 @@ public class TaskService {
 
     // 태스크 수정
     @Transactional
-    public TaskResponseDto updateTask(UpdateTaskRequestDto updateTaskRequestDto, Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+    public TaskResponseDto updateTask(UpdateTaskRequestDto dto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
-        //제목/내용만 업데이트
-        task.updateTask(updateTaskRequestDto.getTitle(), updateTaskRequestDto.getTaskContent());
+        task.updateTask(dto.getTitle(), dto.getTaskContent());
         return new TaskResponseDto(task);
     }
 
     // 태스크 상태 변경
     @Transactional
-    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto taskStatusRequestDto, Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
+    public TaskResponseDto updateTaskStatus(TaskStatusUpdateRequestDto dto, Long taskId) {
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
-        task.updateStatus(taskStatusRequestDto.getTaskStatus());
+        task.updateStatus(dto.getTaskStatus());
         return new TaskResponseDto(task);
     }
 
     // 전체 태스크 조회
     public List<TaskResponseDto> getAllTasks() {
-        List<TaskEntity> taskList = taskRepository.findAll();
-
-        return taskList.stream()
+        return taskRepository.findAll().stream()
+                .filter(taskEntity -> !taskEntity.isDeleted()) // 삭제 안 된 태스크만 필터링
                 .map(TaskResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     // 단건 태스크 조회
     public TaskResponseDto getTaskById(Long taskId) {
-        TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
-
+        TaskEntity task = taskRepository.findById(taskId)
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
         return new TaskResponseDto(task);
     }
 
@@ -74,6 +77,6 @@ public class TaskService {
     public void deleteTask(Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
-        taskRepository.delete(task);
+        task.softDelete();
     }
 }
