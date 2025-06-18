@@ -5,7 +5,6 @@ import com.example.outsourcing.dto.*;
 import com.example.outsourcing.entity.UserEntity;
 import com.example.outsourcing.service.UserService;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.http.HttpStatus;
