@@ -6,7 +6,9 @@ import com.example.outsourcing.dto.user.LoginRequestDto;
 import com.example.outsourcing.dto.user.LoginStatusDto;
 import com.example.outsourcing.dto.user.UserCreateRequestDto;
 import com.example.outsourcing.dto.user.UserCreateResponseDto;
+import com.example.outsourcing.entity.LogEntity;
 import com.example.outsourcing.entity.UserEntity;
+import com.example.outsourcing.repository.LogRepository;
 import com.example.outsourcing.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -27,9 +29,11 @@ public class UserController {
             "Zx2T9mVpQ8fT7uW2LpVzX1GsEjN7RmKdYbHa0oChSqZRlvIx4wPjMFt5DnUB3reOEg6CkR93NmaTqLsFi"
                     .getBytes(StandardCharsets.UTF_8));
     private final long EXPIRATION_TIME = 60 * 60 * 1000; // 토큰 유효기간 1시간
+    private final LogRepository logRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, LogRepository logRepository) {
         this.userService = userService;
+        this.logRepository = logRepository;
     }
     //회원가입
     @PostMapping

@@ -24,11 +24,11 @@ public class LogService {
     }
 
     public List<LogResponserDto> getLogsByUserId(Long userId) {
-        List<LogEntity> logbyuserid = logRepository.findAllByUser_UserId(userId);
+        List<LogEntity> logbyuserid = logRepository.findAllByUser_Id(userId);
         if (logbyuserid.isEmpty()) {
             throw new LogNotFoundException("userId: " + userId + "에 해당하는 로그가 없습니다.");
         }
-        return logRepository.findAllByUser_UserId(userId).stream()
+        return logRepository.findAllByUser_Id(userId).stream()
                 .map(LogResponserDto::toDto)
                 .toList();
     }

@@ -1,12 +1,14 @@
 package com.example.outsourcing.service;
 
 
+import com.example.outsourcing.entity.LogEntity;
 import com.example.outsourcing.entity.UserEntity;
 import com.example.outsourcing.dto.user.LoginRequestDto;
 import com.example.outsourcing.config.PasswordEncoder;
 import com.example.outsourcing.dto.user.UserCreateRequestDto;
 import com.example.outsourcing.dto.user.UserCreateResponseDto;
 import com.example.outsourcing.global.exception.*;
+import com.example.outsourcing.repository.LogRepository;
 import com.example.outsourcing.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LogRepository logRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, LogRepository logRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.logRepository = logRepository;
     }
     //회원가입 기능
     @Transactional
@@ -98,6 +102,15 @@ public class UserService {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
         //로그인에 성공하면
+
+        //로그 생성
+        LogEntity log = LogEntity.logFromLogIn(
+                user,
+                "작업 수정",
+                "작업이 수정되었습니다."
+        );
+        logRepository.save(log);
+
         return user;
     }
 }
