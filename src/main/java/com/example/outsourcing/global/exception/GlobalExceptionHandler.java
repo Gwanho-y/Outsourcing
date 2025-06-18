@@ -11,6 +11,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LogNotFoundException.class)
     public ResponseEntity<String> handleInvalidRequestException(LogNotFoundException ex) {
         return new ResponseEntity<>("잘못된 요청입니다: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     // Task 관련 예외 처리
     @ExceptionHandler(TaskNotFoundException.class)
     public ResponseEntity<String> handleTaskNotFoundException(TaskNotFoundException taskNotFoundException) {
@@ -27,4 +28,3 @@ public class GlobalExceptionHandler {
 }
 
     // 이후 다른 도메인의 예외들도 여기에 추가
-}
