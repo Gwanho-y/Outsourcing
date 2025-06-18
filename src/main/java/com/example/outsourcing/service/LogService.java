@@ -3,7 +3,7 @@ package com.example.outsourcing.service;
 
 import com.example.outsourcing.dto.log.LogResponserDto;
 import com.example.outsourcing.entity.LogEntity;
-import com.example.outsourcing.exception.LogNotFoundException;
+import com.example.outsourcing.global.exception.LogNotFoundException;
 import com.example.outsourcing.repository.LogRepository;
 import org.springframework.stereotype.Service;
 

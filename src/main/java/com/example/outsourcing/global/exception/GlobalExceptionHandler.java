@@ -1,4 +1,4 @@
-package com.example.outsourcing.exception;
+package com.example.outsourcing.global.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
