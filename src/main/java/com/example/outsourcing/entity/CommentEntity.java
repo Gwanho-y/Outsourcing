@@ -29,7 +29,7 @@ public class CommentEntity {
     private LocalDateTime updatedAt;
 
     @Column
-    private boolean isDeleted;
+    private boolean deleted;
 
     @Column
     private LocalDateTime deletedAt;
@@ -44,7 +44,7 @@ public class CommentEntity {
         this.content = content;
         this.createdAt = LocalDateTime.now(ZoneOffset.UTC);
         this.updatedAt = LocalDateTime.now(ZoneOffset.UTC);
-        this.isDeleted = false;
+        this.deleted = false;
     }
 
     @PrePersist void onCreate(){
@@ -57,7 +57,7 @@ public class CommentEntity {
     }
 
     public void delete() {
-        this.isDeleted = true;
+        this.deleted = true;
         this.deletedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 
