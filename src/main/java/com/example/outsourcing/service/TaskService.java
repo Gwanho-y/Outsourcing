@@ -25,10 +25,10 @@ public class TaskService {
 
     // 태스크 생성
     @Transactional
-    public TaskResponseDto createTask(CreateTaskRequestDto requestDto, Long userId) {
+    public TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto, Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        TaskEntity task = new TaskEntity(user, requestDto.getTitle(), requestDto.getTaskContent(), requestDto.getTaskStatus());
+        TaskEntity task = new TaskEntity(user, createTaskRequestDto.getTitle(), createTaskRequestDto.getTaskContent(), createTaskRequestDto.getTaskStatus());
 
         TaskEntity savedTask = taskRepository.save(task);
         return new TaskResponseDto(savedTask);
@@ -36,11 +36,11 @@ public class TaskService {
 
     // 태스크 수정
     @Transactional
-    public TaskResponseDto updateTask(UpdateTaskRequestDto requestDto, Long taskId) {
+    public TaskResponseDto updateTask(UpdateTaskRequestDto updateTaskRequestDto, Long taskId) {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         //제목/내용만 업데이트
-        task.updateTask(requestDto.getTitle(), requestDto.getTaskContent());
+        task.updateTask(updateTaskRequestDto.getTitle(), updateTaskRequestDto.getTaskContent());
         return new TaskResponseDto(task);
     }
 
