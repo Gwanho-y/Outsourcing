@@ -1,4 +1,4 @@
-package com.example.outsourcing.exception;
+package com.example.outsourcing.global.exception;
 
 public class Exceptions {
     //비밀번호가 너무 짧음
