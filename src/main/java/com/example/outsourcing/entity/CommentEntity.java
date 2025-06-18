@@ -47,6 +47,10 @@ public class CommentEntity {
         this.isDeleted = false;
     }
 
+    @PrePersist void onCreate(){
+        createdAt=LocalDateTime.now();
+    }
+
     public void updateComment(String content) {
         this.content = content;
         this.updatedAt = LocalDateTime.now(ZoneOffset.UTC);
@@ -55,5 +59,9 @@ public class CommentEntity {
     public void delete() {
         this.isDeleted = true;
         this.deletedAt = LocalDateTime.now(ZoneOffset.UTC);
+    }
+
+    @PreUpdate void onUpdate(){
+        updatedAt=LocalDateTime.now();
     }
 }
