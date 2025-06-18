@@ -1,11 +1,11 @@
 package com.example.outsourcing.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+import jakarta.persistence.*;
 
 @Getter
-@Table(name = "users")
 @Entity
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -22,6 +22,17 @@ public class UserEntity {
     @Column(nullable = false, length = 5)
     private String name;
 
+    @Column(nullable = false)
+    private boolean isDeleted = false;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
+
     public UserEntity(String email, String password, String name) {
         this.email = email;
         this.password = password;
@@ -29,6 +40,5 @@ public class UserEntity {
     }
 
     protected UserEntity() {
-
     }
 }

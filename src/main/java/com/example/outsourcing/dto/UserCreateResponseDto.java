@@ -1,6 +1,5 @@
 package com.example.outsourcing.dto;
 
-
 import com.example.outsourcing.entity.UserEntity;
 
 public class UserCreateResponseDto {
@@ -26,6 +25,5 @@ public class UserCreateResponseDto {
         this.email = userEntity.getEmail();
         this.name = userEntity.getName();
     }
-
 }
 
