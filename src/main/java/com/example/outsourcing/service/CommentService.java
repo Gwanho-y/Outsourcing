@@ -45,7 +45,7 @@ public class CommentService {
     @Transactional
     public CommentUpdateResponsetDto update(Long commentId, CommentUpdateRequestDto dto) {
         CommentEntity comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException());
-        if(!comment.getUserId().getId().equals(dto.getUserId())) {
+        if(!comment.getUser().getId().equals(dto.getUserId())) {
             throw new CommentUserMismatchException();
         }
         comment.updateComment(dto.getContent());
@@ -69,7 +69,7 @@ public class CommentService {
         List<CommentEntity> entityList = commentRepository.findByTaskIdAndDeletedFalseOrderByCreatedAtDesc(task);
         List<CommentDto> responseDto = entityList.stream().
                 map(entity -> new CommentDto(
-                        entity.getCommentId(), entity.getTaskId().getTaskId(), entity.getUserId().getId(), entity.getContent(), entity.getCreatedAt(), entity.getUpdatedAt())).
+                        entity.getCommentId(), entity.getTaskId().getTaskId(), entity.getUser().getId(), entity.getContent(), entity.getCreatedAt(), entity.getUpdatedAt())).
                 collect(Collectors.toList());
         return responseDto;
     }
@@ -81,7 +81,7 @@ public class CommentService {
                 .map(entity -> new CommentDto(
                         entity.getCommentId(),
                         entity.getTaskId().getTaskId(),
-                        entity.getUserId().getId(),
+                        entity.getUser().getId(),
                         entity.getContent(),
                         entity.getCreatedAt(),
                         entity.getUpdatedAt()))

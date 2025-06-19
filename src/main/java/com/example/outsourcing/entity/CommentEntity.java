@@ -14,10 +14,12 @@ public class CommentEntity {
     private Long commentId;
 
     @ManyToOne(optional=false)
+    @JoinColumn(name = "task_id")
     private TaskEntity taskId;
 
     @ManyToOne(optional = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Column(nullable=false, columnDefinition = "TEXT")
     private String content;
@@ -40,7 +42,7 @@ public class CommentEntity {
 
     public CommentEntity(TaskEntity taskId, UserEntity userId, String content) {
         this.taskId = taskId;
-        this.userId = userId;
+        this.user = userId;
         this.content = content;
         this.createdAt = LocalDateTime.now(ZoneOffset.UTC);
         this.updatedAt = LocalDateTime.now(ZoneOffset.UTC);

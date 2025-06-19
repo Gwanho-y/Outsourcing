@@ -17,7 +17,7 @@ public class CommentCreateResponseDto {
     public CommentCreateResponseDto(CommentEntity commentEntity) {
         this.commentId = commentEntity.getCommentId();
         this.taskId = commentEntity.getTaskId().getTaskId();
-        this.userId = commentEntity.getUserId().getId();
+        this.userId = commentEntity.getUser().getId();
         this.content = commentEntity.getContent();
         this.createdAt = commentEntity.getCreatedAt();
         this.updatedAt = commentEntity.getUpdatedAt();
