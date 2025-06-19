@@ -23,7 +23,7 @@ public class LogController {
         return logService.getLog();
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public List<LogResponserDto> getLogsByUserId(@PathVariable Long userId) {
         return logService.getLogsByUserId(userId);
     }

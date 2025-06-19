@@ -36,7 +36,7 @@ public class CommentController {
     }
 
     /*태스크에 딸린 댓글 전체조회*/
-    @GetMapping("/task/{taskId}")
+    @GetMapping("/tasks/{taskId}")
     public ResponseEntity<List<CommentDto>> list(@PathVariable Long taskId) {
         List<CommentDto> responseDto = service.findCommentsByTask(taskId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
