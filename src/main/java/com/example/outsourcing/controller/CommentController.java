@@ -22,15 +22,15 @@ public class CommentController {
     }
 
     /*댓글 수정*/
-    @PutMapping("/{commentId}")
-    public ResponseEntity<CommentUpdateResponsetDto> update(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto dto) {
+    @PutMapping()
+    public ResponseEntity<CommentUpdateResponsetDto> update(@RequestParam Long commentId, @RequestBody CommentUpdateRequestDto dto) {
         CommentUpdateResponsetDto responsetDto = service.update(commentId, dto);
         return new ResponseEntity<>(responsetDto, HttpStatus.OK);
     }
 
     /*댓글 삭제*/
-    @DeleteMapping("/{commentId}")
-    public ResponseEntity<CommentDeleteResponseDto> delete(@PathVariable Long commentId) {
+    @DeleteMapping()
+    public ResponseEntity<CommentDeleteResponseDto> delete(@RequestParam Long commentId) {
         CommentDeleteResponseDto responseDto = service.delete(commentId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
