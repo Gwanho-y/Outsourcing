@@ -33,10 +33,6 @@ public class GlobalExceptionHandler {
         return response;
     }
 
-    @ExceptionHandler(CourseNotFoundException.class)
-    public ResponseEntity<String> handleCourseNotFoundException() {
-        return new ResponseEntity<>("예외처리구조", HttpStatus.OK);
-    }
         @ExceptionHandler(PasswordMissingLowercaseException.class)
         public ResponseEntity<String> PasswordMissingLowercaseException () {
             ResponseEntity<String> response = new ResponseEntity<>("비밀번호에는 소문자가 최소 1개 포함되어야 합니다.", HttpStatus.BAD_REQUEST);
