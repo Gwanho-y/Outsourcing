@@ -8,8 +8,10 @@ import com.example.outsourcing.dto.user.UserCreateRequestDto;
 import com.example.outsourcing.dto.user.UserCreateResponseDto;
 import com.example.outsourcing.global.exception.*;
 import com.example.outsourcing.repository.UserRepository;
+import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.outsourcing.entity.UserRole;
 
 @Service
 public class UserService {
@@ -45,6 +47,10 @@ public class UserService {
         if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new EmailAlreadyExistsException();
         }
+        UserRole role = requestDto.getRole();
+        if (role == null) {
+            throw new IllegalArgumentException("역할은 USER 또는 ADMIN이어야 합니다.");
+        }
         //비밀번호를 암호화한다
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
@@ -52,7 +58,8 @@ public class UserService {
         UserEntity user = new UserEntity(
                 requestDto.getEmail(),
                 encodedPassword,
-                requestDto.getName()
+                requestDto.getName(),
+                requestDto.getRole()
         );
         //유저 데이터베이스에 저장
         UserEntity saveUserEntity = userRepository.save(user);
