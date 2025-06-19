@@ -3,6 +3,7 @@ package com.example.outsourcing.service;
 import com.example.outsourcing.dto.task.*;
 import com.example.outsourcing.entity.LogEntity;
 import com.example.outsourcing.entity.TaskEntity;
+import com.example.outsourcing.entity.TaskStatus;
 import com.example.outsourcing.entity.UserEntity;
 import com.example.outsourcing.global.exception.TaskNotFoundException;
 import com.example.outsourcing.repository.LogRepository;
@@ -12,6 +13,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,5 +93,35 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("ID=" + taskId));
 
         task.softDelete();
+    }
+
+
+
+
+
+
+
+
+
+    //대시보드
+    public List<DashboardDto> getDashboardStatus() {
+        //TODO, IN_PROGRESS, DONE 별 개수 조회
+        Map<TaskStatus, Long> countMap = Arrays.stream(TaskStatus.values())
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        status -> taskRepository.countByTaskStatus(status)
+                ));
+
+        //전체 개수 계산
+        long total = countMap.values().stream().mapToLong(Long::longValue).sum();
+
+        //DashboardDto 리스트로 변환
+        return countMap.entrySet().stream()
+                .map(entry -> new DashboardDto(
+                        entry.getKey(),
+                        entry.getValue(),
+                        total == 0 ? 0.0 : Math.round((entry.getValue() * 1000.0 / total)) / 10.0
+                ))
+                .collect(Collectors.toList());
     }
 }
