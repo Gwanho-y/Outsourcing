@@ -8,6 +8,7 @@ public class CreateTaskRequestDto {
     private String title;
     private String taskContent;
     private TaskStatus taskStatus;
+    private Long userId;
 
     public CreateTaskRequestDto(String title, String taskContent, TaskStatus taskStatus) {
         this.title = title;

@@ -29,7 +29,8 @@ public class TaskService {
 
     // 태스크 생성
     @Transactional
-    public TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto, Long userId) {
+    public TaskResponseDto createTask(CreateTaskRequestDto createTaskRequestDto) {
+        Long userId = createTaskRequestDto.getUserId();
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         TaskEntity task = new TaskEntity(user, createTaskRequestDto.getTitle(), createTaskRequestDto.getTaskContent(), createTaskRequestDto.getTaskStatus());

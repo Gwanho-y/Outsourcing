@@ -22,10 +22,9 @@ public class TaskController {
     // 태스크 생성, 인증된 유저만
     @PostMapping
     public ResponseEntity<TaskResponseDto> createTask(
-            @RequestBody CreateTaskRequestDto createTaskRequestDto,
-            @RequestParam("userId") Long userId
+            @RequestBody CreateTaskRequestDto createTaskRequestDto
     ) {
-        TaskResponseDto responseDto = taskService.createTask(createTaskRequestDto, userId);
+        TaskResponseDto responseDto = taskService.createTask(createTaskRequestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
